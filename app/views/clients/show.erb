@@ -1,0 +1,42 @@
+<h1>Client: <%= @client.identifier %></h1>
+
+<table class="table table-striped">
+  <tr>
+    <td>Average Response Time</td>
+    <td><%= @client.payload_requests.average_response_time %> milliseconds</td>
+  </tr>
+  <tr>
+    <td>Maximum Response Time</td>
+    <td><%= @client.payload_requests.max_response_time %> milliseconds</td>
+  </tr>
+  <tr>
+    <td>Minimum Response Time</td>
+    <td><%= @client.payload_requests.min_response_time %> milliseconds</td>
+  </tr>
+  <tr>
+    <td>Most Frequent Request Type</td>
+    <td><%= @client.request_types.most_frequent_request_type %></td>
+  </tr>
+  <tr>
+    <td>HTTP Verbs Used (Unique List)</td>
+    <td><%= @client.request_types.all_http_verbs %></td>
+  </tr>
+  <tr>
+    <td>URLs From Most Requested to Least</td>
+    <td><%= @client.urls.list_urls_by_frequency %></td>
+  </tr>
+  <tr>
+    <td>Web Browsers</td>
+    <td><%= @client.user_agent_infos.all_browsers %> </td>
+  </tr>
+  <tr>
+    <td>
+      OSes
+    </td>
+    <td><%= @client.user_agent_infos.all_oses %></td>
+  </tr>
+  <tr>
+    <td>Screen Resolutions</td>
+    <td> <%=  @client.screen_sizes.all_screen_sizes %> </td>
+  </tr>
+</table>

@@ -4,10 +4,10 @@ class RequestType < ActiveRecord::Base
   validates :name, presence: true
 
   def self.all_http_verbs
-    uniq.pluck("name")
+    uniq.pluck("name").join(", ")
   end
 
   def self.most_frequent_request_type
-    select("name").group("name").order("count_id DESC").limit(1).count("id").keys
+    select("name").group("name").order("count_id DESC").limit(1).count("id").keys.first
   end
 end
