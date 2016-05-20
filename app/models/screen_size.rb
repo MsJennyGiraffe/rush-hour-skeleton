@@ -8,6 +8,6 @@ class ScreenSize < ActiveRecord::Base
     resolutions = uniq.pluck("resolution_height", "resolution_width")
     resolutions.map do |resolution|
       resolution.join(" x ")
-    end
+    end.join(", ")
   end
 end

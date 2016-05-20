@@ -4,7 +4,7 @@ class Url < ActiveRecord::Base
   validates :address, presence: true
 
   def self.list_urls_by_frequency
-    select("address").group("address").order("count_id DESC").count("id").keys
+    select("address").group("address").order("count_id DESC").count("id").keys.join(", ")
   end
 
   def max_response_time

@@ -7,11 +7,11 @@ class UserAgentInfo < ActiveRecord::Base
   validates :os, presence: true
 
   def self.all_browsers
-    uniq.pluck("browser").sort
+    uniq.pluck("browser").sort.join(", ")
   end
 
   def self.all_oses
-    uniq.pluck("os").sort
+    uniq.pluck("os").sort.join(", ")
   end
 
 end
