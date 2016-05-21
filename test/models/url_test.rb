@@ -20,7 +20,7 @@ class UrlTest < Minitest::Test
     url3 = Url.create({address: "http://www.nyt.com"})
     url4 = Url.create({address: "http://www.nyt.com"})
     url5 = Url.create({address: "http://www.nyt.com"})
-    assert_equal ["http://www.nyt.com", "http://www.google.com"], Url.list_urls_by_frequency
+    assert_equal "http://www.nyt.com, http://www.google.com", Url.list_urls_by_frequency
   end
 
   def test_can_find_max_response_time_for_specific_url

@@ -34,7 +34,7 @@ class UserAgentInfoTest < Minitest::Test
     agent2 = UserAgentInfo.create({ browser: "Opera!", version: "Version!", platform: "Platform!", os: "Windows 10"})
     agent3 = UserAgentInfo.create({ browser: "Dolphin!", version: "Version!", platform: "Platform!", os: "Windows 10"})
     agent4 = UserAgentInfo.create({ browser: "Netscape!", version: "Version!", platform: "Platform!", os: "Windows 10"})
-    assert_equal ["Chrome!", "Dolphin!", "Netscape!", "Opera!"], UserAgentInfo.all_browsers
+    assert_equal "Chrome!, Dolphin!, Netscape!, Opera!", UserAgentInfo.all_browsers
   end
 
   def test_it_gives_list_of_all_oses
@@ -42,6 +42,6 @@ class UserAgentInfoTest < Minitest::Test
     agent2 = UserAgentInfo.create({ browser: "Opera!", version: "Version!", platform: "MacIntosh", os: "Mac OS X"})
     agent3 = UserAgentInfo.create({ browser: "Dolphin!", version: "Version!", platform: "Windows", os: "Windows 8.1"})
     agent4 = UserAgentInfo.create({ browser: "Netscape!", version: "Version!", platform: "Platform!", os: "Windows 95"})
-    assert_equal ["Mac OS X", "Windows 10", "Windows 8.1", "Windows 95"], UserAgentInfo.all_oses
+    assert_equal "Mac OS X, Windows 10, Windows 8.1, Windows 95", UserAgentInfo.all_oses
   end
 end

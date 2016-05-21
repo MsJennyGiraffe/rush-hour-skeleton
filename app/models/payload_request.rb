@@ -1,5 +1,4 @@
 class PayloadRequest < ActiveRecord::Base
-
   belongs_to :event
   belongs_to :ip
   belongs_to :referred_by
@@ -14,7 +13,6 @@ class PayloadRequest < ActiveRecord::Base
   validates :responded_in, presence: true
   validates :referred_by_id, presence: true
   validates :request_type_id, presence: true
-  # validates :parameters, presence: true
   validates :event_id, presence: true
   validates :user_agent_info_id, presence: true
   validates :screen_size_id, presence: true
