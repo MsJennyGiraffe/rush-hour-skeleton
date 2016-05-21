@@ -27,6 +27,19 @@ module RushHour
       end
     end
 
+    get '/sources/:identifier/urls/:relative_path' do |identifier, relative_path|
+      @client = Client.find_by(identifier: identifier)
+      @full_url = "#{@client.root_url}" + "/#{relative_path}"
+      @full_url_object = @client.urls.find_by(address: @full_url)
+
+      if @full_url_object.present?
+        erb :'urls/show'
+      else
+        @error_string = "#{@full_url} does not exist."
+        erb :error
+      end
+    end
+
     post '/sources/:identifier/data' do |identifier|
       payload = create_new_payload(params, identifier)
       payload_response_decider(payload)
@@ -35,5 +48,7 @@ module RushHour
     post '/sources' do
       client_response_decider(params)
     end
+
+
   end
 end

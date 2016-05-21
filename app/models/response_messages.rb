@@ -1,8 +1,8 @@
 module ResponseMessages
 
   def client_response_decider(params)
-    client = Client.new(identifier: params[:identifier], root_url: params[:rootUrl])
     client_sha = create_sha(params)
+    client = Client.new(identifier: params[:identifier], root_url: params[:rootUrl], sha: client_sha)
     if client_sha_exists?(client)
       response_client_already_exists
     else
@@ -23,7 +23,7 @@ module ResponseMessages
       if payload.save
         response_payload_created
       else
-        response_list_all_payload_errors
+        response_list_all_payload_errors(payload)
       end
     end
   end
@@ -43,7 +43,7 @@ module ResponseMessages
     response.body = "Payload created"
   end
 
-  def response_list_all_payload_errors
+  def response_list_all_payload_errors(payload)
     response.status = 400
     payload.errors.full_messages.join(", ")
   end

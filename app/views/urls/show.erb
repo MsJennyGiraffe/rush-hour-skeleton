@@ -1,0 +1,33 @@
+<h1>URL: <%= @full_url %></h1>
+<table class="table table-striped">
+  <tr>
+    <td>Maximum Response Time</td>
+    <td>
+      <%= @full_url_object.max_response_time %>
+    </td>
+  </tr>
+  <tr>
+    <td>Minimum Response Time</td>
+    <td><%= @full_url_object.min_response_time %></td>
+  </tr>
+  <tr>
+    <td>All Response Times, Ranked</td>
+    <td> <%= @full_url_object.all_response_times_sorted %>
+  </tr>
+  <tr>
+    <td>Average Response Time</td>
+    <td> <%= @full_url_object.average_response_time %></td>
+  </tr>
+  <tr>
+    <td>HTTP Verbs Associated with URL</td>
+    <td> <%= @full_url_object.http_verbs_for_url %></td>
+  </tr>
+  <tr>
+    <td>Three Most Popular Referrers</td>
+    <td> <%= @full_url_object.three_most_popular_referrers %></td>
+  </tr>
+  <tr>
+    <td>Three Most Popular User Agents</td>
+    <td> <%= @full_url_object.three_most_popular_user_agents %></td>
+  </tr>
+</table>
