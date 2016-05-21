@@ -18,7 +18,7 @@ class EventTest < Minitest::Test
     event1 = Event.create({ name: "events!"})
     event2 = Event.create({ name: "events!"})
     event3 = Event.create({ name: "A-list events!"})
-    assert_equal ["events!", "A-list events!"], Event.list_events_by_frequency
 
+    assert_equal ["events!", "A-list events!"], Event.list_events_by_frequency
   end
 end

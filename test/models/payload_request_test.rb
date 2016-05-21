@@ -1,11 +1,46 @@
 require_relative '../test_helper'
 
 class PayloadRequestTest < Minitest::Test
-
   include TestHelpers
 
   def test_payload_without_info_is_not_valid
     refute PayloadRequest.create(nil).valid?
+  end
+
+  def test_payload_without_url_is_not_valid
+    refute PayloadRequest.create({url_id: ""}).valid?
+  end
+
+  def test_payload_without_requested_at_is_not_valid
+    refute PayloadRequest.create({requested_at: ""}).valid?
+  end
+
+  def test_payload_without_responded_in_not_valid
+    refute PayloadRequest.create({responded_in: ""}).valid?
+  end
+
+  def test_payload_without_referred_by_is_not_valid
+    refute PayloadRequest.create({referred_by_id: ""}).valid?
+  end
+
+  def test_payload_without_request_type_is_not_valid
+    refute PayloadRequest.create({request_type_id: ""}).valid?
+  end
+
+  def test_payload_without_event_is_not_valid
+    refute PayloadRequest.create({event_id: ""}).valid?
+  end
+
+  def test_payload_without_user_agent_info_is_not_valid
+    refute PayloadRequest.create({user_agent_info_id: ""}).valid?
+  end
+
+  def test_payload_without_screen_size_is_not_valid
+    refute PayloadRequest.create({screen_size_id: ""}).valid?
+  end
+
+  def test_payload_without_ip_is_not_valid
+    refute PayloadRequest.create({ip_id: ""}).valid?
   end
 
   def test_it_validates_payload_request_with_values

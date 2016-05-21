@@ -20,7 +20,7 @@ class RequestTypeTest < Minitest::Test
     RequestType.create({ name: "POST"})
     RequestType.create({ name: "DELETE"})
 
-    assert_equal ["POST", "GET", "DELETE"], RequestType.all_http_verbs
+    assert_equal "POST, GET, DELETE", RequestType.all_http_verbs
   end
 
   def test_it_finds_most_common_request_type
@@ -28,7 +28,7 @@ class RequestTypeTest < Minitest::Test
     RequestType.create({name: "GET"})
     RequestType.create({name: "POST"})
 
-    assert_equal ["GET"], RequestType.most_frequent_request_type
+    assert_equal "GET", RequestType.most_frequent_request_type
   end
 
 end
