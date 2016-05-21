@@ -21,7 +21,7 @@ module Unique
     req = Net::HTTP.new(url.host, url.port)
     res = req.request_head(url.path)
 
-    return true if res.code != "200"
+    return true if res.code == "404"
   end
 
 end

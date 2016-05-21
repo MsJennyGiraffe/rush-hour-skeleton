@@ -20,13 +20,13 @@ class Url < ActiveRecord::Base
   end
 
   def all_response_times_sorted
-    payload_requests.order(responded_in: :DESC).pluck("responded_in")
+    payload_requests.order(responded_in: :DESC).pluck("responded_in").join(", ")
   end
 
   def http_verbs_for_url
     payload_requests.pluck("request_type_id").uniq.map do |id|
       RequestType.find(id).name
-    end
+    end.join(", ")
   end
 
   def three_most_popular_referrers
@@ -34,7 +34,7 @@ class Url < ActiveRecord::Base
 
     referred_by_ids.group("referred_by_id").order("count_id DESC").limit(3).count("id").keys.map do |id|
         ReferredBy.find(id).name
-    end
+    end.join(", ")
   end
 
   def three_most_popular_user_agents
@@ -42,6 +42,6 @@ class Url < ActiveRecord::Base
 
     user_agent_ids.group("user_agent_info_id").order("count_id DESC").limit(3).count("id").keys.map do |id|
         "OS: #{UserAgentInfo.find(id).os}, Browser: #{UserAgentInfo.find(id).browser}"
-    end
+    end.join(", ")
   end
 end
