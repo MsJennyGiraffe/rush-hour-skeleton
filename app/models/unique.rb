@@ -24,4 +24,8 @@ module Unique
     return true if res.code == "404"
   end
 
+  def bad_client?(identifier)
+    !Client.find_by(identifier: identifier).present?
+  end
+
 end
