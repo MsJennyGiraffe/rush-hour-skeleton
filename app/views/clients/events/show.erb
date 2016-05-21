@@ -1,0 +1,5 @@
+<h1>Client: <%= @client.identifier %>, Event: <%= @event.name %> </h1>
+
+<% @event_time_hash.each do |time, payloads| %>
+  <p><%= time %>00 hours: <%= payloads.count %></p>
+<% end %>
