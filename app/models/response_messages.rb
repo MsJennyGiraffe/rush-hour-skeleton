@@ -1,6 +1,6 @@
 module ResponseMessages
 
-  def client_response_decider
+  def client_response_decider(params)
     client = Client.new(identifier: params[:identifier], root_url: params[:rootUrl])
     client_sha = create_sha(params)
     if client_sha_exists?(client)
@@ -9,7 +9,7 @@ module ResponseMessages
       if client.save
         response_client_created
       else
-        response_list_all_client_errors
+        response_list_all_client_errors(client)
       end
     end
   end
@@ -58,7 +58,7 @@ module ResponseMessages
     response.body = "Client created"
   end
 
-  def response_list_all_client_errors
+  def response_list_all_client_errors(client)
     response.status = 400
     response.body = client.errors.full_messages.join(", ")
   end

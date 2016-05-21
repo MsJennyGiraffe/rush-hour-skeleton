@@ -33,7 +33,7 @@ module RushHour
     end
 
     post '/sources' do
-      client_response_decider
+      client_response_decider(params)
     end
   end
 end
