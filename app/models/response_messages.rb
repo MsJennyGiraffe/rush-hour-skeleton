@@ -14,11 +14,11 @@ module ResponseMessages
     end
   end
 
-  def payload_response_decider(payload)
+  def payload_response_decider(payload, identifier)
     if payload_sha_exists?(payload)
       response_payload_already_exists
-    elsif bad_url?(params)
-      response_payload_contains_bad_url
+    elsif bad_client?(identifier)
+      response_payload_does_not_have_client(identifier)
     else
       if payload.save
         response_payload_created
@@ -36,6 +36,11 @@ module ResponseMessages
   def response_payload_contains_bad_url
     response.status = 403
     response.body = "Payload contains URL that doesn't exist"
+  end
+
+  def response_payload_does_not_have_client(identifier)
+    response.status = 403
+    response.body = "Payload contains URL that doesn't have a client with identifier: #{identifier}."
   end
 
   def response_payload_created

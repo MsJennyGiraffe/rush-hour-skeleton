@@ -29,26 +29,50 @@ module RushHour
 
     get '/sources/:identifier/urls/:relative_path' do |identifier, relative_path|
       @client = Client.find_by(identifier: identifier)
-      @full_url = "#{@client.root_url}" + "/#{relative_path}"
-      @full_url_object = @client.urls.find_by(address: @full_url)
+      if @client.present?
+        @full_url = "#{@client.root_url}" + "/#{relative_path}"
+        @full_url_object = @client.urls.find_by(address: @full_url)
 
-      if @full_url_object.present?
-        erb :'urls/show'
+        if @full_url_object.present?
+          erb :'urls/show'
+        else
+          @error_string = "#{@full_url} does not exist."
+          erb :error
+        end
       else
-        @error_string = "#{@full_url} does not exist."
+        @error_string = "Client with the identifier #{identifier} does not exist."
         erb :error
       end
     end
 
     post '/sources/:identifier/data' do |identifier|
       payload = create_new_payload(params, identifier)
-      payload_response_decider(payload)
+      payload_response_decider(payload, identifier)
     end
 
     post '/sources' do
       client_response_decider(params)
     end
 
+    get '/sources/:identifier/events' do |identifier|
+      @client = Client.find_by(identifier: identifier)
+      @uniq_client_events = @client.events.uniq
+
+      erb :'clients/events/index'
+    end
+
+    get '/sources/:identifier/events/:event_name' do |identifier, event_name|
+      @client = Client.find_by(identifier: identifier)
+      @event = Event.find_by(name: event_name)
+
+      if @event.present?
+        @event_payload_requests = @client.payload_requests.where(event_id: @event.id)
+        @event_time_hash = @event_payload_requests.group_by{|payload| payload.requested_at.hour}.sort
+        erb :'clients/events/show'
+      else
+        erb :'clients/events/error', locals: {event_name: event_name}
+      end
+    end
 
   end
 end

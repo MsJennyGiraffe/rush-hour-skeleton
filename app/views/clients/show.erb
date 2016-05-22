@@ -24,7 +24,7 @@
   <tr>
     <td>URLs From Most Requested to Least</td>
     <td><% @client.urls.list_urls_by_frequency.split(", ").map do |link|%>
-        <a href="<%= "/sources/#{@client.identifier}/urls/#{link.split("/").last}" %>"><%= link %></a>
+        <a href="<%= "/sources/#{@client.identifier}/urls/#{link.split("/").last}" %>"><%= link %></a><br>
         <% end %>
     </td>
   </tr>
