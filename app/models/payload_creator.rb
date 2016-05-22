@@ -7,17 +7,17 @@ module PayloadCreator
     parsed_user_agent = parse_user_agent_info(parsed_payload["userAgent"])
 
     payload = PayloadRequest.new(
-      url: parsed_url(parsed_payload["url"]),
+      url: parsed_url(parsed_payload),
       requested_at: parsed_payload["requestedAt"],
       responded_in: parsed_payload["respondedIn"],
-      referred_by: parsed_referred_by(parsed_payload["referredBy"]),
-      request_type: ,
+      referred_by: parsed_referred_by(parsed_payload),
+      request_type: parsed_request_type(parsed_payload),
       parameters: parsed_payload["parameters"],
-      event: parsed_event(parsed_payload["event"]),
+      event: parsed_event(parsed_payload),
       user_agent_info: parsed_user_agent_info(parsed_user_agent),
-      screen_size: parsed_screen_size(parsed_payload["resolutionWidth"], parsed_payload["resolutionHeight"])
-      ip: parsed_ip(parsed_payload["ip"]),
-      client: parsed_client(client_identifier),
+      screen_size: parsed_screen_size(parsed_payload),
+      ip: parsed_ip(parsed_payload),
+      client: parsed_client(parsed_payload, client_identifier),
       sha: create_sha(parsed_payload)
       )
   end
@@ -32,19 +32,19 @@ module PayloadCreator
     user_agent_qualities
   end
 
-  def parsed_url(parsed_payload["url"])
+  def parsed_url(parsed_payload)
     Url.find_or_create_by(address: parsed_payload["url"])
   end
 
-  def parsed_referred_by(parsed_payload["referredBy"])
+  def parsed_referred_by(parsed_payload)
     ReferredBy.find_or_create_by(name: parsed_payload["referredBy"])
   end
 
-  def parsed_request_type(parsed_payload["requestType"])
+  def parsed_request_type(parsed_payload)
     RequestType.find_or_create_by(name: parsed_payload["requestType"])
   end
 
-  def parsed_event(parsed_payload["eventName"])
+  def parsed_event(parsed_payload)
     Event.find_or_create_by(name: parsed_payload["eventName"])
   end
 
@@ -52,15 +52,15 @@ module PayloadCreator
     UserAgentInfo.find_or_create_by(parsed_user_agent)
   end
 
-  def parsed_screen_size(parsed_payload["resolutionWidth"], parsed_payload["resolutionHeight"])
+  def parsed_screen_size(parsed_payload)
     ScreenSize.find_or_create_by(resolution_width: parsed_payload["resolutionWidth"], resolution_height: parsed_payload["resolutionHeight"])
   end
 
-  def parsed_ip(parsed_payload["ip"])
+  def parsed_ip(parsed_payload)
     Ip.find_or_create_by(address: parsed_payload["ip"])
   end
 
-  def parsed_client(client_identifier)
+  def parsed_client(parsed_payload, client_identifier)
     Client.find_by(identifier: client_identifier)
   end
 end
