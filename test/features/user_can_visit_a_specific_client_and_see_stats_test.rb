@@ -37,12 +37,14 @@ class UserCanVisitASpecificClientAndSeeStats < FeatureTest
 
     visit "/sources/google"
 
-    assert page.has_content?("google")
-    assert page.has_content?("20 milliseconds")
-    assert page.has_content?("GET")
-    assert page.has_content?("www.google.com/about")
-    assert page.has_content?("Mozilla/5.0")
-    assert page.has_content?("Intel Mac OS X")
-    assert page.has_content?("1080 x 900")
+    within(".table") do
+      assert page.has_content?("google")
+      assert page.has_content?("20 milliseconds")
+      assert page.has_content?("GET")
+      assert page.has_content?("www.google.com/about")
+      assert page.has_content?("Mozilla/5.0")
+      assert page.has_content?("Intel Mac OS X")
+      assert page.has_content?("1080 x 900")
+    end
   end
 end

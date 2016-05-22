@@ -1,5 +1,8 @@
 ENV["RACK_ENV"] ||= "test"
 
+require 'simplecov'
+SimpleCov.start
+
 require 'bundler'
 Bundler.require
 
@@ -8,6 +11,8 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require 'capybara/dsl'
 require 'database_cleaner'
+require 'tilt/erb'
+
 
 Capybara.app = RushHour::Server
 DatabaseCleaner.strategy = :truncation, {except: %w[public.schema_migrations]}
