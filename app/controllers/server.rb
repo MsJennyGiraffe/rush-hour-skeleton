@@ -16,7 +16,7 @@ module RushHour
       if Client.exists?(identifier: identifier)
         @client =  Client.find_by(identifier: identifier)
         if @client.payload_requests.empty?
-          identifier_has_no_payload_requests(identifier)
+          @error_string = "Identifier #{identifier} has no associated payload requests."
           not_found
         else
           erb :'clients/show'
