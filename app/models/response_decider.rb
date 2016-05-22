@@ -3,7 +3,7 @@ require_relative '../models/error_messages'
 module ResponseDecider
   include ErrorMessages
 
-  def client_response_decider(params)
+  def client_response_decider(identifier)
     client_sha = create_sha(params)
     client = Client.new(identifier: params[:identifier], root_url: params[:rootUrl], sha: client_sha)
     if client_sha_exists?(client)
@@ -39,10 +39,10 @@ module ResponseDecider
     else
       error_client_does_not_exist(identifier)
       not_found
-    end  
+    end
   end
 
-  def client_response_decider(identifier)
+  def create_client_response_decider(identifier)
     if Client.exists?(identifier: identifier)
       @client =  Client.find_by(identifier: identifier)
       if @client.payload_requests.empty?

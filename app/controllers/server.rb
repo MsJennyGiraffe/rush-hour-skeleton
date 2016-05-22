@@ -13,7 +13,7 @@ module RushHour
     end
 
     get '/sources/:identifier' do |identifier|
-      client_response_decider(identifier)
+      create_client_response_decider(identifier)
     end
 
     get '/sources/:identifier/urls/:relative_path' do |identifier, relative_path|
