@@ -1,0 +1,5 @@
+<h1>You encountered an error!</h1>
+
+<p>The event <em><%= event_name %></em> for client with identifier <em><%= @client.identifier %></em> does not exist.</p>
+
+<a href="<%= "/sources/#{@client.identifier}/events" %>">Back to <%= @client.identifier %> Events</a>

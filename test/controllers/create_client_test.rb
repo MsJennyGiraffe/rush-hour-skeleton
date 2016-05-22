@@ -1,7 +1,6 @@
 require_relative '../test_helper'
 
-class ServerTest < Minitest::Test
-  include Rack::Test::Methods
+class CreateClientTest < Minitest::Test
   include TestHelpers
 
   def test_complete_request

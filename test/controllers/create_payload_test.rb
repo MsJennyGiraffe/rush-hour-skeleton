@@ -2,7 +2,6 @@ require_relative '../test_helper'
 require 'json'
 
 class CreateGenreTest < Minitest::Test
-  include Rack::Test::Methods
   include TestHelpers
 
   def test_can_create_a_payload_with_valid_attributes

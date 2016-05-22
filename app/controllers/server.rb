@@ -56,16 +56,22 @@ module RushHour
 
     get '/sources/:identifier/events' do |identifier|
       @client = Client.find_by(identifier: identifier)
+      @uniq_client_events = @client.events.uniq
+
       erb :'clients/events/index'
     end
 
     get '/sources/:identifier/events/:event_name' do |identifier, event_name|
       @client = Client.find_by(identifier: identifier)
       @event = Event.find_by(name: event_name)
-      @event_payload_requests = @client.payload_requests.where(event_id: @event.id)
-      @event_time_hash = @event_payload_requests.group_by{|payload| payload.requested_at.hour}.sort
 
-      erb :'clients/events/show'
+      if @event.present?
+        @event_payload_requests = @client.payload_requests.where(event_id: @event.id)
+        @event_time_hash = @event_payload_requests.group_by{|payload| payload.requested_at.hour}.sort
+        erb :'clients/events/show'
+      else
+        erb :'clients/events/error', locals: {event_name: event_name}
+      end
     end
 
   end
