@@ -1,6 +1,7 @@
 require_relative '../models/error_messages'
 
 module ResponseDecider
+  include ErrorMessages
 
   def client_response_decider(params)
     client_sha = create_sha(params)
@@ -30,17 +31,28 @@ module ResponseDecider
     end
   end
 
+  def client_index_response_decider(identifier)
+    @client = Client.find_by(identifier: identifier)
+    if @client.present?
+      @uniq_client_events = @client.events.uniq
+      erb :'clients/events/index'
+    else
+      error_client_does_not_exist(identifier)
+      not_found
+    end  
+  end
+
   def client_response_decider(identifier)
     if Client.exists?(identifier: identifier)
       @client =  Client.find_by(identifier: identifier)
       if @client.payload_requests.empty?
-        @error_string = "Identifier #{identifier} has no associated payload requests."
+        error_client_has_no_associated_payloads(identifier)
         not_found
       else
         erb :'clients/show'
       end
     else
-      @error_string = "#{identifier} does not exist."
+      error_client_does_not_exist(identifier)
       not_found
     end
   end
@@ -54,11 +66,11 @@ module ResponseDecider
       if @full_url_object.present?
         erb :'urls/show'
       else
-        @error_string = "#{@full_url} does not exist."
+        error_full_url_does_not_exist(identifier, relative_path)
         not_found
       end
     else
-      @error_string = "Client with the identifier #{identifier} does not exist."
+      error_client_does_not_exist(identifier)
       not_found
     end
   end

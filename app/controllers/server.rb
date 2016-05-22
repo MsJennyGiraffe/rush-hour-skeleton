@@ -30,9 +30,7 @@ module RushHour
     end
 
     get '/sources/:identifier/events' do |identifier|
-      @client = Client.find_by(identifier: identifier)
-      @uniq_client_events = @client.events.uniq
-      erb :'clients/events/index'
+      client_index_response_decider(identifier)
     end
 
     get '/sources/:identifier/events/:event_name' do |identifier, event_name|
