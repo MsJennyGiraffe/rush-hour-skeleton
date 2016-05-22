@@ -28,4 +28,11 @@ module TestHelpers
     DatabaseCleaner.clean
     super
   end
+
+end
+
+
+class FeatureTest < Minitest::Test
+  include Capybara::DSL
+  include TestHelpers
 end
