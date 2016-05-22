@@ -1,0 +1,3 @@
+<% @client.urls.list_urls_by_frequency.split(", ").map do |link|%>
+  <a href="<%= "/sources/#{@client.identifier}/urls/#{link.split("/").last}" %>"><%= link %></a><br>
+<% end %>
