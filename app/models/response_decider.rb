@@ -1,4 +1,7 @@
+require_relative '../models/error_messages'
+
 module ResponseDecider
+  include ErrorMessages
 
   def client_response_decider(params)
     client_sha = create_sha(params)
@@ -25,6 +28,72 @@ module ResponseDecider
       else
         response_list_all_payload_errors(payload)
       end
+    end
+  end
+
+  def client_index_response_decider(identifier)
+    @client = Client.find_by(identifier: identifier)
+    if @client.present?
+      @uniq_client_events = @client.events.uniq
+      erb :'clients/events/index'
+    else
+      error_client_does_not_exist(identifier)
+      not_found
+    end  
+  end
+
+  def client_response_decider(identifier)
+    if Client.exists?(identifier: identifier)
+      @client =  Client.find_by(identifier: identifier)
+      if @client.payload_requests.empty?
+        error_client_has_no_associated_payloads(identifier)
+        not_found
+      else
+        erb :'clients/show'
+      end
+    else
+      error_client_does_not_exist(identifier)
+      not_found
+    end
+  end
+
+  def urls_response_decider(identifier, relative_path)
+    @client = Client.find_by(identifier: identifier)
+    if @client.present?
+      @full_url = "#{@client.root_url}" + "/#{relative_path}"
+      @full_url_object = @client.urls.find_by(address: @full_url)
+
+      if @full_url_object.present?
+        erb :'urls/show'
+      else
+        error_full_url_does_not_exist(identifier, relative_path)
+        not_found
+      end
+    else
+      error_client_does_not_exist(identifier)
+      not_found
+    end
+  end
+
+  def events_response_decider(identifier, event_name)
+    @client = Client.find_by(identifier: identifier)
+    if @client.present?
+      @event = Event.find_by(name: event_name)
+        if @event.present?
+          if @client.events.find_by(name: @event.name).present?
+            @event_payload_requests = @client.payload_requests.where(event_id: @event.id)
+            @event_time_hash = @event_payload_requests.group_by{|payload| payload.requested_at.hour}.sort
+            erb :'clients/events/show'
+          else
+            error_event_not_contained_in_client(identifier, event)
+            not_found
+          end
+        else
+          erb :'clients/events/error', locals: {event_name: event_name}
+        end
+      else
+      error_client_does_not_exist(identifier)
+      not_found
     end
   end
 
