@@ -22,5 +22,4 @@ class UniqueTest < Minitest::Test
     client = make_client
     assert bad_client?(client)
   end
-
 end
