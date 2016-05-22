@@ -1,0 +1,10 @@
+<% (0..23).to_a.each do |hour| %>
+  <tr>
+    <td><%= hour %>:00</td>
+    <% if @event_time_hash.find{|array| array[0] == hour}.present? %>
+      <td><b><%= @event_time_hash.find{|array| array[0] == hour}[1].count %></b></td>
+    <% else %>
+      <td>0</td>
+    <% end %>
+  </tr>
+<% end %>

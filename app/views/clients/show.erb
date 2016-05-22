@@ -23,23 +23,18 @@
   </tr>
   <tr>
     <td>URLs From Most Requested to Least</td>
-    <td><% @client.urls.list_urls_by_frequency.split(", ").map do |link|%>
-        <a href="<%= "/sources/#{@client.identifier}/urls/#{link.split("/").last}" %>"><%= link %></a><br>
-        <% end %>
-    </td>
+    <td><%= erb :'shared/_client_urls', locals: {client: @client} %></td>
   </tr>
   <tr>
     <td>Web Browsers</td>
-    <td><%= @client.user_agent_infos.all_browsers %> </td>
+    <td><%= @client.user_agent_infos.all_browsers %></td>
   </tr>
   <tr>
-    <td>
-      OSes
-    </td>
+    <td>OSes</td>
     <td><%= @client.user_agent_infos.all_oses %></td>
   </tr>
   <tr>
     <td>Screen Resolutions</td>
-    <td> <%=  @client.screen_sizes.all_screen_sizes %> </td>
+    <td><%= @client.screen_sizes.all_screen_sizes %></td>
   </tr>
 </table>
