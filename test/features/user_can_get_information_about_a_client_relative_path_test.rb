@@ -1,6 +1,6 @@
 require_relative "../test_helper"
 
-class UserCanGitInformationAboutAClientRelativePath < FeatureTest
+class UserCanGitInformationAboutAClientRelativePathTest < FeatureTest
 
   def test_user_can_get_information_about_a_client_relative_path
     make_payload_request
