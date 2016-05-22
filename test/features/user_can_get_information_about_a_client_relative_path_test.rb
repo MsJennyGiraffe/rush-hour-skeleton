@@ -37,12 +37,14 @@ class UserCanGitInformationAboutAClientRelativePath < FeatureTest
 
     visit "/sources/google/urls/about"
 
-    assert page.has_content?("google")
-    assert page.has_content?("20")
-    assert page.has_content?("GET")
-    assert page.has_content?("www.google.com")
-    assert page.has_content?("Intel Mac OS X 10.8.2")
-    assert page.has_content?("Mozilla/5.0")
+    within(".table") do
+      assert page.has_content?("google")
+      assert page.has_content?("20")
+      assert page.has_content?("GET")
+      assert page.has_content?("www.google.com")
+      assert page.has_content?("Intel Mac OS X 10.8.2")
+      assert page.has_content?("Mozilla/5.0")
+    end
   end
 
   def test_if_identifier_does_not_exist_user_sees_error
