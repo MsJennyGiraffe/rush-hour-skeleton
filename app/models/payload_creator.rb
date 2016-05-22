@@ -8,7 +8,7 @@ module PayloadCreator
 
     payload = PayloadRequest.new(
       url: parsed_url(parsed_payload),
-      requested_at: parsed_payload["requestedAt"],
+      requested_at: convert_requested_at(parsed_payload["requestedAt"]),
       responded_in: parsed_payload["respondedIn"],
       referred_by: parsed_referred_by(parsed_payload),
       request_type: parsed_request_type(parsed_payload),
@@ -30,6 +30,10 @@ module PayloadCreator
     user_agent_qualities[:version] = "Windows 8.1"
     user_agent_qualities[:os] = user_agent.os
     user_agent_qualities
+  end
+
+  def convert_requested_at(time_string)
+    time_string.sub(" 24:", " 00:")
   end
 
   def parsed_url(parsed_payload)

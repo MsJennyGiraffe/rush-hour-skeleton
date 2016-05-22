@@ -1,4 +1,4 @@
-module ResponseMessages
+module ResponseDecider
 
   def client_response_decider(params)
     client_sha = create_sha(params)
