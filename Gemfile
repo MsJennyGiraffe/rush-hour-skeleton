@@ -15,4 +15,5 @@ group :development, :test do
   gem 'useragent'
   gem 'database_cleaner'
   gem 'pry'
+  gem 'simplecov', :require => false, :group => :test
 end

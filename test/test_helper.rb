@@ -1,5 +1,8 @@
 ENV["RACK_ENV"] ||= "test"
 
+require 'simplecov'
+SimpleCov.start
+
 require 'bundler'
 Bundler.require
 
@@ -8,6 +11,9 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require 'capybara/dsl'
 require 'database_cleaner'
+require 'tilt/erb'
+require_relative 'payload_helpers'
+
 
 Capybara.app = RushHour::Server
 DatabaseCleaner.strategy = :truncation, {except: %w[public.schema_migrations]}
@@ -15,6 +21,7 @@ DatabaseCleaner.strategy = :truncation, {except: %w[public.schema_migrations]}
 
 module TestHelpers
   include Rack::Test::Methods
+  include PayloadHelpers
   def app
     RushHour::Server
   end
@@ -28,4 +35,10 @@ module TestHelpers
     DatabaseCleaner.clean
     super
   end
+
+end
+
+class FeatureTest < Minitest::Test
+  include Capybara::DSL
+  include TestHelpers
 end
