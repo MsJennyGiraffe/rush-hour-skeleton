@@ -1,6 +1,6 @@
 require_relative '../test_helper'
 
-class CreateClientTest < Minitest::Test
+class CreateClientDataTest < Minitest::Test
   include TestHelpers
   include PayloadHelpers
 
