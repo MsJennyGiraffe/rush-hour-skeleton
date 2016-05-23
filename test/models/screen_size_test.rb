@@ -25,7 +25,7 @@ class ScreenSizeTest < Minitest::Test
     ScreenSize.create({ resolution_height: "1920", resolution_width: "1280" })
     ScreenSize.create({ resolution_height: "1600", resolution_width: "800" })
 
-    assert_equal "1600 x 800, 1920 x 1280, 1280 x 800", ScreenSize.all_screen_sizes
+    assert_equal "1600 x 800, 1280 x 800, 1920 x 1280", ScreenSize.all_screen_sizes
   end
 
 end

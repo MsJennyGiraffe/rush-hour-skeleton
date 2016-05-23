@@ -16,11 +16,11 @@ class Url < ActiveRecord::Base
   end
 
   def average_response_time
-    payload_requests.average("responded_in").round(2)
+    payload_requests.average("responded_in").round(1)
   end
 
   def all_response_times_sorted
-    payload_requests.order(responded_in: :DESC).pluck("responded_in").join(", ")
+    payload_requests.order(responded_in: :DESC).uniq.pluck("responded_in").join(", ")
   end
 
   def http_verbs_for_url
