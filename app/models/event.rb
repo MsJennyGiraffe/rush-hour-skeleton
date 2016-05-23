@@ -6,5 +6,4 @@ class Event < ActiveRecord::Base
   def self.list_events_by_frequency
     select("name").group("name").order("count_id DESC").count("id").keys
   end
-
 end
