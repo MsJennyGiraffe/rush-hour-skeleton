@@ -8,8 +8,8 @@ module ErrorMessages
     @error_string = "Client with the identifier #{identifier} does not exist."
   end
 
-  def error_event_not_contained_in_client(identifier, event)
-    @error_string = "Event #{@event.name} is not contained in client with identifier #{identifier}."
+  def error_event_not_contained_in_client(identifier, event_name)
+    @error_string = "Event #{event_name} is not contained in client with identifier #{identifier}."
   end
 
   def error_client_has_no_associated_payloads(identifier)
