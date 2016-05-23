@@ -1,7 +1,7 @@
 require_relative '../test_helper'
 require 'json'
 
-class CreateGenreTest < Minitest::Test
+class CreatePayloadTest < Minitest::Test
   include TestHelpers
 
   def test_can_create_a_payload_with_valid_attributes
