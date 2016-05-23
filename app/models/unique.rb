@@ -14,16 +14,6 @@ module Unique
     PayloadRequest.exists?(sha: object.sha)
   end
 
-  def bad_url?(params)
-    parsed_payload = JSON.parse(params["payload"])
-
-    url = URI.parse(parsed_payload["url"])
-    req = Net::HTTP.new(url.host, url.port)
-    res = req.request_head(url.path)
-
-    return true if res.code == "404"
-  end
-
   def bad_client?(identifier)
     !Client.find_by(identifier: identifier).present?
   end
