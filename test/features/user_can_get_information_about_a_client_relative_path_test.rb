@@ -21,7 +21,7 @@ class UserCanGitInformationAboutAClientRelativePathTest < FeatureTest
     make_payload_request
 
     visit "/sources/google/urls/i_made_this_up"
-    assert page.has_content?("www.google.com/i_made_this_up does not exist.")
+    assert page.has_content?("No URL for client google exists at relative path i_made_this_up")
   end
 
   def test_it_displays_an_error_if_the_client_does_not_exist
