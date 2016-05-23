@@ -85,7 +85,7 @@ module ResponseDecider
             @event_time_hash = @event_payload_requests.group_by{|payload| payload.requested_at.hour}.sort
             erb :'clients/events/show'
           else
-            error_event_not_contained_in_client(identifier, event)
+            error_event_not_contained_in_client(identifier, event_name)
             not_found
           end
         else
